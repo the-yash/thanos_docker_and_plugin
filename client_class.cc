@@ -1,6 +1,9 @@
 #include<iostream>
 #include<bits/stdc++.h>
 #include <string>
+#include <thread>         // std::this_thread::sleep_for
+#include <chrono>  
+
 #include "adapter.h"
 
 //Memory class for calling memory-related metrics from client side.
@@ -61,16 +64,19 @@ class cpu{
 //main function for calling the metrics
 
 int main(int argc, char *argv[]) {
-	memory obj1;
-	cpu obj2;
-	obj1.total();
-	obj1.used();
-	obj1.available();
-	obj1.total_swap();
-	obj1.available_swap();
-	obj2.idle();
-	obj2.busy();
-	obj2.user();
-	obj2.system();
-	obj2.total();
+	while(1==1){
+		memory obj1;
+		cpu obj2;
+		obj1.total();
+		obj1.used();
+		obj1.available();
+		obj1.total_swap();
+		obj1.available_swap();
+		obj2.idle();
+		obj2.busy();
+		obj2.user();
+		obj2.system();
+		obj2.total();
+		std::this_thread::sleep_for (std::chrono::seconds(1));
+	}
 }

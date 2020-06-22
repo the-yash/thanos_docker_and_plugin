@@ -102,17 +102,17 @@ void PageRequest :: run(){ // the run function to send the request and receive t
   barrier.wait_for(std::chrono::seconds(5));
 
   auto end = std::chrono::system_clock::now();
-  std::cout << "Summary of execution" << std::endl
-            << "Total number of PageRequests sent     : " << count << std::endl
-            << "Total number of responses received: "
-            << completedPageRequests.load() << std::endl
-            // << "Total number of PageRequests failed   : " << failedPageRequests.load()
-            // << std::endl
-            << "Total time of execution           : "
-            << std::chrono::duration_cast<std::chrono::milliseconds>(end -
-                                                                     start)
-                   .count()
-            << "ms" << std::endl;
+  // std::cout << "Summary of execution" << std::endl
+  //           << "Total number of PageRequests sent     : " << count << std::endl
+  //           << "Total number of responses received: "
+  //           << completedPageRequests.load() << std::endl
+  //           // << "Total number of PageRequests failed   : " << failedPageRequests.load()
+  //           // << std::endl
+  //           << "Total time of execution           : "
+  //           << std::chrono::duration_cast<std::chrono::milliseconds>(end -
+  //                                                                    start)
+  //                  .count()
+  //           << "ms" << std::endl;
 
   client.shutdown();
 }
