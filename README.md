@@ -10,8 +10,11 @@ After having cloned the repository, to set up the libraries required for the plu
 Start the docker containers to see the metrics graphically
 > docker-compose up -d
 
-To run the plugin
+To compile the plugin
 > make
+
+To run the plugin
+>./combine
 
 To see the Grafana dashboard, open your browser and type http://localhost:3000. Credentials are the default ones.
 
