@@ -16,6 +16,10 @@ To compile the plugin
 To run the plugin
 >./combine
 
+The plugin will run send the request and fetch the json after every second unless you decide to terminate it.
+
+To stop the execution, press Ctrl+C to terminate it.
+
 To see the Grafana dashboard, open your browser and type http://localhost:3000. Credentials are the default ones.
 
 To run the queries for metrics from Thanos (Prometheus based), open your browser and type http://localhost:10904.
