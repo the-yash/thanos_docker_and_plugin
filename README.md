@@ -5,7 +5,8 @@ To run this project, first clone this repository -
 > git clone https://github.com/the-yash/thanos_docker_and_plugin.
 
 After having cloned the repository, to set up the libraries required for the plugin
-> chmod u+x ./env_setup.sh
+> chmod u+x env_setup.sh
+>./env_setup.sh
 
 Start the docker containers to see the metrics graphically
 > docker-compose up -d
