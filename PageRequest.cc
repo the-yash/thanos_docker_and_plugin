@@ -14,12 +14,6 @@
 #include <typeinfo>
 #include "PageRequest.h"
 
-#include "spdlog/spdlog.h"
-#include "spdlog/sinks/basic_file_sink.h"
-#include "spdlog/sinks/daily_file_sink.h"
-#include "spdlog/sinks/stdout_color_sinks.h"
-
-
 using namespace Pistache;
 using namespace Pistache::Http;
 using namespace rapidjson;
@@ -39,10 +33,6 @@ PageRequest::PageRequest(std:: string query){ // when paramteres are passed
 
 
 void PageRequest :: run(){ // the run function to send the request and receive the json
-  
-  // auto file_logger = spdlog::get("daily_logger");
-  // spdlog::set_default_logger(file_logger); 
-
   int count = 1;
   Http::Client client;
   // std::cout<<"Check "<<page<<std::endl;
@@ -62,7 +52,6 @@ void PageRequest :: run(){ // the run function to send the request and receive t
           ++completedPageRequests;
           std::cout << "Response code = " << response.code() << std::endl ;
           // << decltype(response.code()) << std::endl;
-          spdlog::info("Request received {0:d}",response.code());
           auto body = response.body();
           // auto body_str = response.body().c_str(); //This does not work 
 
@@ -104,7 +93,6 @@ void PageRequest :: run(){ // the run function to send the request and receive t
           PrintException excPrinter;
           excPrinter(exc);
           // std::cout<<"SSS"<<std::endl;
-          spdlog::warn("Failed request");
         });
     responses.push_back(std::move(resp));
   }
@@ -125,6 +113,6 @@ void PageRequest :: run(){ // the run function to send the request and receive t
   //                                                                    start)
   //                  .count()
   //           << "ms" << std::endl;
-  spdlog::debug("Total time of execution {0:d} milliseconds",std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count());
+
   client.shutdown();
 }
