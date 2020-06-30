@@ -97,7 +97,7 @@ services:
       - thanos
 
   sidecar0:
-    image: thanosio/thanos:v0.10.0
+    image: thanosio/thanos:v0.12.2
     container_name: thanos-sidecar0
     command:
       - "sidecar"
@@ -123,7 +123,7 @@ services:
       - 10900 
 
   sidecar1:
-    image: thanosio/thanos:v0.10.0
+    image: thanosio/thanos:v0.12.2
     container_name: thanos-sidecar1
     command:
       - "sidecar"
@@ -146,7 +146,7 @@ services:
       - thanos
 
   sidecar2:
-    image: thanosio/thanos:v0.10.0
+    image: thanosio/thanos:v0.12.2
     container_name: thanos-sidecar2
     command:
       - "sidecar"
@@ -169,7 +169,7 @@ services:
       - thanos
 
   store:
-    image: thanosio/thanos:v0.10.0
+    image: thanosio/thanos:v0.12.2
     container_name: thanos-store
     restart: always
     command:
@@ -191,7 +191,7 @@ services:
       - thanos
 
   receive:
-    image: thanosio/thanos:v0.10.0
+    image: thanosio/thanos:v0.12.2
     container_name: thanos-receive
     command:
       - "receive"
@@ -205,6 +205,7 @@ services:
       - "--label=receive=\"true\""
       - "--objstore.config-file=/bucket.yml"
       - "--remote-write.address=0.0.0.0:10908"
+      - "--tsdb.retention=2d" 
     volumes:
       - receive:/data
       - ./data/bucket.yml:/bucket.yml
@@ -230,7 +231,7 @@ services:
       - thanos
 
   node-exporter:
-    image: prom/node-exporter:v0.18.1
+    image: prom/node-exporter:v1.0.1
     container_name: node-exporter
     volumes:
       - /proc:/host/proc:ro
@@ -245,7 +246,7 @@ services:
       - thanos
 
   query0:
-    image: thanosio/thanos:v0.10.0
+    image: thanosio/thanos:v0.12.2
     container_name: thanos-query0
     command:
       - "query"
@@ -261,6 +262,7 @@ services:
       - "--store=sidecar2:10921"
       - "--store=store:10905"
       - "--store=receive:10907"
+      - "--query.auto-downsampling"
     ports:
       - 10904:10904
     depends_on:
@@ -274,7 +276,7 @@ services:
       - thanos
 
   query1:
-    image: thanosio/thanos:v0.10.0
+    image: thanosio/thanos:v0.12.2
     container_name: thanos-query1
     command:
       - "query"
@@ -301,7 +303,7 @@ services:
       - thanos
       
   compactor:
-    image: thanosio/thanos:v0.12.0
+    image: thanosio/thanos:v0.12.2
     container_name: compactor
     command:
       - "compact"
@@ -335,39 +337,39 @@ services:
     networks:
       - thanos
 
-  bucket_web:
-    build:
-      context: ./thanos
-      dockerfile: Dockerfile.thanos
-    container_name: bucket_web
-    command:
-      - "/thanos"
-      - "tools"
-      - "bucket"
-      - "web"
-      - |
-        --objstore.config=type: S3
-        config: 
-            bucket: thanos
-            endpoint: minio:9000
-            insecure: true
-            signature_version2: true
-            access_key: EXAMPLEKEY
-            secret_key: EXAMPLESECRET
-      - "--http-address=0.0.0.0:8080"
-    expose:
-      - 8080
-      - 9000
-      - 10902
-    ports:
-      - "8080:8080"
-    depends_on:
-      - minio  
-    networks:
-      - thanos  
+  # bucket_web:
+  #   build:
+  #     context: ./thanos
+  #     dockerfile: Dockerfile.thanos
+  #   container_name: bucket_web
+  #   command:
+  #     - "/thanos"
+  #     - "tools"
+  #     - "bucket"
+  #     - "web"
+  #     - |
+  #       --objstore.config=type: S3
+  #       config: 
+  #           bucket: thanos
+  #           endpoint: minio:9000
+  #           insecure: true
+  #           signature_version2: true
+  #           access_key: EXAMPLEKEY
+  #           secret_key: EXAMPLESECRET
+  #     - "--http-address=0.0.0.0:8080"
+  #   expose:
+  #     - 8080
+  #     - 9000
+  #     - 10902
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     - minio  
+  #   networks:
+  #     - thanos  
       
   grafana:
-    image: grafana/grafana:6.5.2
+    image: grafana/grafana:7.0.3
     container_name: grafana
     volumes:
      - grafana_data:/var/lib/grafana
