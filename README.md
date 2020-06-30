@@ -12,9 +12,9 @@ chmod u+x env_setup.sh
 ./env_setup.sh 
 ```
 
-Start the docker containers to see the metrics graphically
+Start the docker containers to see the metrics graphically (multiserver)
 ```
-docker-compose up -d
+docker-compose -f docker-compose-multiserver.yml up
 ```
 
 To compile the plugin
@@ -24,12 +24,17 @@ make
 
 To run the plugin
 ```
-./combine
+./plugin
 ```
 
 The plugin will run send the request and fetch the json after every second unless you decide to terminate it.
 
 To stop the execution, press Ctrl+C to terminate it.
+
+To remove the plugin
+```
+make clean
+```
 
 To see the Grafana dashboard, open your browser and type http://localhost:3000. Credentials are the default ones.
 
@@ -39,5 +44,5 @@ To run see the objects stored, open your browser and type http://localhost:9000.
 
 To stop the containers,
 ```
-docker-compose down
+docker-compose -f docker-compose-multiserver.yml down
 ```
