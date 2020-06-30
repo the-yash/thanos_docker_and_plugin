@@ -29,3 +29,13 @@ cd build
 cmake ..
 make
 sudo make install
+
+cd ../..
+git clone https://github.com/jbeder/yaml-cpp.git
+cd yaml-cpp
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+cd ../..

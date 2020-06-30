@@ -4,14 +4,17 @@
 #include "PageRequest.h"
 #include "adapter.h"
 
-//This is the adapter file with function defintions. The queries that have to be sent to the API are hardcoded here. For each function, a different query is required to be hardcoded.
+/*This is the adapter file with function defintions. 
+The queries that have to be sent to the API are hardcoded here. 
+For each function, a different query is required to be hardcoded.*/
 
 // adapter_mem class funtion definitions
 
 adapter_mem::adapter_mem(){
-	page = "http://localhost:10904/api/v1/query?query=" ; /*This is the base page of the API. It is initialized in the constructor. 
-							       It is common to all queries. The queries have to be concatenated with this
-							       string stored in page variable. */
+	/*This is the base page of the API. It is initialized in the constructor. 
+	It is common to all queries. The queries have to be concatenated with this 
+	string stored in page variable. */
+	page = "http://localhost:10904/api/v1/query?query=" ; 
 }
 
 void adapter_mem::total(){
@@ -43,9 +46,9 @@ void adapter_mem::available_swap(){
 //adapter_cpu class function definitions
 
 adapter_cpu::adapter_cpu(){
-	page = "http://localhost:10904/api/v1/query?query=" ; /*This is the base page of the API. It is initialized in the constructor. 
-							       It is common to all queries. The queries have to be concatenated with this
-							       string stored in page variable. */
+	/*This is the base page of the API. It is initialized in the constructor. 
+	It is common to all queries. The queries have to be concatenated with this string stored in page variable. */
+	page = "http://localhost:10904/api/v1/query?query=" ; 
 }	
 
 void adapter_cpu::busy(){
@@ -65,7 +68,6 @@ void adapter_cpu::total(){
 
 void adapter_cpu::idle(){
 	obj.page = page +"((sum(irate(node_cpu_seconds_total{mode=\"idle\"}[5m]))/sum(irate(node_cpu_seconds_total{}[5m]))))*100";
-	// std::cout<<obj.page<<std::endl;
 	obj.run();
 }
 void adapter_cpu::system(){

@@ -1,17 +1,4 @@
-// #include <atomic>
-
-// #include <pistache/client.h>
-// #include <pistache/http.h>
-// #include <pistache/net.h>
-// #include "rapidjson/document.h"
-
-// #include <iostream> 
-// #include <string>
-// #include <bits/stdc++.h>
-// #include <typeinfo>
-
-// using namespace Pistache;
-// using namespace Pistache::Http;
+/* To limit definition of header files to one instance */
 #ifndef PAGEREQUEST_H
 #define PAGEREQUEST_H
 
@@ -22,14 +9,13 @@ class PageRequest
 
   std::string page ;
 
-  // PageRequest(){
-    
-  //   page =  "http://localhost:9090/api/v1/labels";
-  //   std::cout<<"Unparamterized constructor called"<<std::endl
-  //            << page <<std::endl;       
-  // }  
+  /* Unparameterized constructor */
   PageRequest();
+
+  /* Parameterized constructor (default)*/
   PageRequest(std:: string query);
+
+  /* The function that sends requests and outputs the response*/
   void run();
 
 };

@@ -1,3 +1,4 @@
+/* To limit definition of header files to one instance */
 #ifndef ADAPTER_H
 #define ADAPTER_H
 
