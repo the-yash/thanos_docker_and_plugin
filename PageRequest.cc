@@ -15,8 +15,6 @@
 #include <pistache/http.h>
 #include <pistache/net.h>
 
-<<<<<<< HEAD
-=======
 /* spdlog libraries */
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
@@ -26,7 +24,6 @@
 
 #include "PageRequest.h"
 
->>>>>>> CleanExtra
 using namespace Pistache;
 using namespace Pistache::Http;
 using namespace rapidjson;
@@ -47,15 +44,10 @@ PageRequest::PageRequest(std:: string query){ // when paramteres are passed
   page = query;
 }
 
-<<<<<<< HEAD
-
-void PageRequest :: run(){ // the run function to send the request and receive the json
-=======
 /* Function to send the request and receive the json response */
 void PageRequest :: run(){ 
   
   /*To set the number of times to send a request. Here it is 1*/
->>>>>>> CleanExtra
   int count = 1;
   Http::Client client;
 
@@ -75,11 +67,7 @@ void PageRequest :: run(){
         [&](Http::Response response) {
           ++completedPageRequests;
           std::cout << "Response code = " << response.code() << std::endl ;
-<<<<<<< HEAD
-          // << decltype(response.code()) << std::endl;
-=======
           spdlog::info("Request received {0:d}",response.code());
->>>>>>> CleanExtra
           auto body = response.body();
           // auto body_str = response.body().c_str(); //This does not work 
 
@@ -127,11 +115,7 @@ void PageRequest :: run(){
           ++failedPageRequests;
           PrintException excPrinter;
           excPrinter(exc);
-<<<<<<< HEAD
-          // std::cout<<"SSS"<<std::endl;
-=======
           spdlog::warn("Failed request");
->>>>>>> CleanExtra
         });
     responses.push_back(std::move(resp));
   }
@@ -155,10 +139,6 @@ void PageRequest :: run(){
   //                                                                    start)
   //                  .count()
   //           << "ms" << std::endl;
-<<<<<<< HEAD
 
-=======
-  
->>>>>>> CleanExtra
   client.shutdown();
 }
