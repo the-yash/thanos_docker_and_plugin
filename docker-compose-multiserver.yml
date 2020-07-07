@@ -55,6 +55,8 @@ services:
       - minio
     networks:
       - thanos
+    ports:
+      - 9090:9090  
 
   prometheus1:
     image: prom/prometheus:v2.9.2
@@ -75,6 +77,8 @@ services:
       - minio
     networks:
       - thanos
+    ports:
+      - 9091:9091 
 
   prometheus2:
     image: prom/prometheus:v2.9.2
@@ -95,6 +99,8 @@ services:
       - minio
     networks:
       - thanos
+    ports:
+      - 9092:9092  
 
   sidecar0:
     image: thanosio/thanos:v0.12.2
@@ -244,6 +250,8 @@ services:
       - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
     networks:
       - thanos
+    ports:
+      - 9100:9100  
 
   query0:
     image: thanosio/thanos:v0.12.2
