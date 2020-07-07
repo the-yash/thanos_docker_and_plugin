@@ -3,7 +3,7 @@ Docker setup with prometheus, grafana, node-exporter and thanos. Includes c++ ba
 
 To run this project, first clone this repository - 
 ```
-git clone https://github.com/the-yash/thanos_docker_and_plugin.
+git clone https://github.com/the-yash/thanos_docker_and_plugin
 ```
 
 After having cloned the repository, to set up the libraries required for the plugin
