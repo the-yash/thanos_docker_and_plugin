@@ -3,6 +3,7 @@
 #include <string>
 #include <bits/stdc++.h>
 #include <typeinfo>
+#include <fstream> 
 
 /* Rapidjson libraries */
 #include "rapidjson/document.h"
@@ -46,7 +47,9 @@ PageRequest::PageRequest(std:: string query){ // when paramteres are passed
 
 /* Function to send the request and receive the json response */
 void PageRequest :: run(){ 
-  
+  //File handling to print out the json
+  std::ofstream fout; 
+  fout.open(out_file,std::ios::app); 
   /*To set the number of times to send a request. Here it is 1*/
   int count = 1;
   Http::Client client;
@@ -66,14 +69,14 @@ void PageRequest :: run(){
     resp.then(
         [&](Http::Response response) {
           ++completedPageRequests;
-          std::cout << "Response code = " << response.code() << std::endl ;
+          fout << "Response code = " << response.code() << std::endl ;
           spdlog::info("Request received {0:d}",response.code());
           auto body = response.body();
           // auto body_str = response.body().c_str(); //This does not work 
 
           /* The rapidjson implementation -> */
           if (!body.empty()){
-            std::cout << "Response body = " << body ;
+            fout << "Response body = " << body ;
             // std::cout << "Response body string = " << body_str << std::endl;
 
             /* 1. Parse a JSON string into DOM.*/
@@ -141,4 +144,5 @@ void PageRequest :: run(){
   //           << "ms" << std::endl;
 
   client.shutdown();
+  fout.close();
 }

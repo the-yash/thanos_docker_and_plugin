@@ -19,27 +19,33 @@ adapter_mem::adapter_mem(){
 
 void adapter_mem::total(){
 	obj.page = page +"node_memory_MemTotal_bytes";
+	obj.out_file = out_file;
 	obj.run();
 }
 void adapter_mem::used(){
 	obj.page = page +"node_memory_MemTotal_bytes-node_memory_MemAvailable_bytes";
+	obj.out_file = out_file;
 	obj.run();
 }
 void adapter_mem::available(){
 	obj.page = page +"node_memory_MemAvailable_bytes";
+	obj.out_file = out_file;
 	obj.run();
 }
 void adapter_mem::total_swap(){
 	obj.page = page +"node_memory_SwapTotal_bytes";
+	obj.out_file = out_file;
 	obj.run();		
 
 }
 void adapter_mem::used_swap(){
 	obj.page = page +"node_memory_SwapTotal_bytes-node_memory_SwapFree_bytes";
+	obj.out_file = out_file;
 	obj.run();
 }
 void adapter_mem::available_swap(){
 	obj.page = page +"node_memory_SwapFree_bytes";
+	obj.out_file = out_file;
 	obj.run();
 }
 
@@ -53,25 +59,30 @@ adapter_cpu::adapter_cpu(){
 
 void adapter_cpu::busy(){
 	obj.page = page +"(1-(sum(irate(node_cpu_seconds_total{mode=\"idle\"}[5m]))/sum(irate(node_cpu_seconds_total{}[5m]))))*100";
+	obj.out_file = out_file;
 	obj.run();
 }
 
 void adapter_cpu::user(){
 	obj.page = page +"((sum(irate(node_cpu_seconds_total{mode=\"user\"}[5m]))/sum(irate(node_cpu_seconds_total{}[5m]))))*100";
+	obj.out_file = out_file;
 	obj.run();
 }
 
 void adapter_cpu::total(){
 	obj.page = page +"(sum(irate(node_cpu_seconds_total{}[5m])))";
+	obj.out_file = out_file;
 	obj.run();
 }
 
 void adapter_cpu::idle(){
 	obj.page = page +"((sum(irate(node_cpu_seconds_total{mode=\"idle\"}[5m]))/sum(irate(node_cpu_seconds_total{}[5m]))))*100";
+	obj.out_file = out_file;
 	obj.run();
 }
 void adapter_cpu::system(){
 	obj.page = page +"((sum(irate(node_cpu_seconds_total{mode=\"system\"}[5m]))/sum(irate(node_cpu_seconds_total{}[5m]))))*100";
+	obj.out_file = out_file;
 	obj.run();
 }
 

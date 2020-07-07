@@ -8,6 +8,7 @@ class adapter_mem{
 	public:
 
 	std::string page;
+	std::string out_file;
 	PageRequest obj;
 
 	adapter_mem();
@@ -24,6 +25,7 @@ class adapter_cpu{
 	public:
 
 	std::string page ;
+	std::string out_file;
 	PageRequest obj;	
 
 	adapter_cpu();

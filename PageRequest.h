@@ -8,6 +8,7 @@ class PageRequest
   public:
 
   std::string page ;
+  std::string out_file;
 
   /* Unparameterized constructor */
   PageRequest();

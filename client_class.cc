@@ -4,6 +4,7 @@
 #include <thread>         // std::this_thread::sleep_for
 #include <chrono>  
 #include <unistd.h> 
+#include <csignal> 
 
 /*spdlog library for logging feature*/
 #include "spdlog/spdlog.h"
@@ -21,8 +22,9 @@ class memory{
 	
 	adapter_mem obj;
 
-	void set(std::string url){
+	void set(std::string url,std::string out_file){
 		obj.page = url;
+		obj.out_file = out_file;
 	}
 
 	void total(){
@@ -54,8 +56,9 @@ class cpu{
 
 	adapter_cpu obj;
 
-	void set(std::string url){
+	void set(std::string url,std::string out_file){
 		obj.page = url;
+		obj.out_file = out_file;
 	}	
 
 	void busy(){
@@ -78,14 +81,30 @@ class cpu{
 	}
 };
 
+//signal handling. This function lets the user know that program is terminating by printing it out to console
+void signalHandler( int signum ) {
+	// fclose(stdout);
+	stdout = fdopen(1, "w");
+
+	std::cout << "Interrupt signal (" << signum << ") received.\n";
+
+	// cleanup and close up stuff here  
+	// terminate program  
+
+	exit(signum);  
+}
+
 
 //main function for calling the metrics
 
 int main(int argc, char *argv[]) {
+
+	//Signal Handling to for termination of program
+	signal(SIGINT, signalHandler);
+	signal(SIGQUIT, signalHandler);
 	//Objects of metric-related classes
 	memory obj1;
 	cpu obj2;
-
 	//Loading the config file
 	YAML::Node config = YAML::LoadFile("config.yaml");	
 
@@ -98,7 +117,7 @@ int main(int argc, char *argv[]) {
 	//Reading the t_perioduency of requests (in seconds)
 	int t_period = config["TIME_PERIOD_IN_SECONDS"].as<int>();
 
-
+	std::string out_file = config["OUTPUT_FILE"].as<std::string>();
     //Setting the log file
 	auto logger = spdlog::daily_logger_mt("daily_logger", log_loc, 2, 30); 
 	spdlog::set_default_logger(logger);
@@ -107,8 +126,9 @@ int main(int argc, char *argv[]) {
 	// spdlog::set_level(spdlog::level::debug);
 
 	/* Passing the base query url to the objects */
-	obj1.set(query_url);
-	obj2.set(query_url);
+	obj1.set(query_url,out_file);
+	obj2.set(query_url,out_file);
+
 
 	/* Infinite loop which sends the request every t_period seconds */
 	while(1==1){

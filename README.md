@@ -14,7 +14,12 @@ chmod u+x env_setup.sh
 
 Start the docker containers to see the metrics graphically (multiserver)
 ```
-docker-compose -f docker-compose-multiserver.yml up
+docker-compose -f docker-compose-multiserver.yml up -d
+```
+
+Start the docker containers to see the metrics graphically (single server)
+```
+docker-compose -f docker-compose-single-server.yml up -d
 ```
 
 To compile the plugin
@@ -26,8 +31,6 @@ To run the plugin
 ```
 ./plugin
 ```
-
-The plugin will run send the request and fetch the json after every second unless you decide to terminate it.
 
 To stop the execution, press Ctrl+C to terminate it.
 
@@ -43,6 +46,13 @@ To run the queries for metrics from Thanos (Prometheus based), open your browser
 To run see the objects stored, open your browser and type http://localhost:9000. Credentials are mentioned in the data/bucket.yml file.
 
 To stop the containers,
+(Multiserver)
 ```
 docker-compose -f docker-compose-multiserver.yml down
 ```
+(Single Server)
+```
+docker-compose -f docker-compose-multiserver.yml down
+```
+
+For complete detailed working, see the PDF.
